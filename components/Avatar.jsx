@@ -3,11 +3,12 @@ import React from 'react';
 import { theme } from '../constants/theme';
 import { Image } from 'expo-image';
 import { getUserImageSrc } from '../services/imageService';
+import { hp } from '../utils/common';
 
 const Avatar = ({
   uri,
   size = hp(4.5),
-  rounded = theme.rounded.md,
+  rounded = theme.radius.md,
   style = {},
 }) => {
   return (

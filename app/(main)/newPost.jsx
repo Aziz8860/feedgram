@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ScreenWrapper from '../../components/ScreenWrapper';
 import Header from '../../components/Header';
 import { hp, wp } from '../../utils/common';
@@ -16,7 +16,7 @@ import { theme } from '../../constants/theme';
 import { useAuth } from '../../context/AuthContext';
 import Avatar from '../../components/Avatar';
 import RichTextEditor from '../../components/RichTextEditor';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import Button from '../../components/Button';
 import * as ImagePicker from 'expo-image-picker';
 import { getSupabaseFileUrl } from '../../services/imageService';
@@ -25,12 +25,24 @@ import { Video } from 'expo-av';
 import { createOrUpdatePost } from '../../services/postService';
 
 const NewPost = () => {
+  const post = useLocalSearchParams();
+  console.log('post: ', post);
   const { user } = useAuth();
   const bodyRef = useRef('');
   const editorRef = useRef(null);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(file);
+
+  useEffect(() => {
+    if (post && post.id) {
+      bodyRef.current = post.body;
+      setFile(post.file || null);
+      setTimeout(() => {
+        editorRef.current.setContentHTML(post.body);
+      }, 300);
+    }
+  }, []);
 
   const onPick = async (isImage) => {
     let mediaConfig = {
@@ -85,7 +97,7 @@ const NewPost = () => {
     return getSupabaseFileUrl(file)?.uri;
   };
 
-  console.log('file uri', getFileUri(file));
+  // console.log('file uri', getFileUri(file));
 
   const onSubmit = async () => {
     if (!bodyRef.current && !file) {
@@ -98,6 +110,11 @@ const NewPost = () => {
       body: bodyRef.current,
       userId: user?.id,
     };
+
+    // ketika edit ga perlu id baru
+    if (post && post.id) {
+      data.id = post.id;
+    }
 
     // create post
     setLoading(true);
@@ -176,7 +193,7 @@ const NewPost = () => {
         </ScrollView>
         <Button
           buttonStyles={{ height: hp(6.2) }}
-          title="Post"
+          title={post && post.id ? 'Update' : 'Post'}
           loading={loading}
           hasShadow={false}
           onPress={onSubmit}

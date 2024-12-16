@@ -22,11 +22,36 @@ const Home = () => {
   const [hasMore, setHasMore] = useState(true);
 
   const handlePostEvent = async (payload) => {
+    // console.log('payload', payload);
+
     if (payload.eventType == 'INSERT' && payload?.new?.id) {
       let newPost = { ...payload.new };
       let res = await getUserData(newPost.userId);
+      newPost.postLikes = [];
+      newPost.comments = [{ count: 0 }];
       newPost.user = res.success ? res.data : {};
       setPosts((prevPosts) => [newPost, ...prevPosts]);
+    }
+    if (payload.eventType == 'DELETE' && payload.old.id) {
+      setPosts((prevPosts) => {
+        let updatedPosts = prevPosts.filter(
+          (post) => post.id != payload.old.id
+        );
+        return updatedPosts;
+      });
+    }
+    if (payload.eventType == 'UPDATE' && payload?.new?.id) {
+      setPosts((prevPosts) => {
+        let updatedPosts = prevPosts.map((post) => {
+          if (post.id == payload.new.id) {
+            post.body = payload.new.body;
+            post.file = payload.new.file;
+          }
+          return post;
+        });
+
+        return updatedPosts;
+      });
     }
   };
 
@@ -40,7 +65,7 @@ const Home = () => {
       )
       .subscribe();
 
-    // sudah diimplement di flatlist
+    // fungsi ini sudah diimplement di flatlist
     // getPosts();
 
     return () => {
@@ -52,7 +77,7 @@ const Home = () => {
     // call the api here
 
     if (!hasMore) return null;
-    limit = limit + 8;
+    limit = limit + 10;
 
     console.log('limit post: ', limit);
     let res = await fetchPosts(limit);
