@@ -125,7 +125,7 @@ const Home = () => {
     <ScreenWrapper bg="white">
       {/* header */}
       <View style={styles.header}>
-        <Text style={styles.title}>LinkUp</Text>
+        <Text style={styles.title}>Feedgram</Text>
         <View style={styles.icons}>
           <Pressable
             onPress={() => {
