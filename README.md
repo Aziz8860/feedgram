@@ -1,50 +1,24 @@
-# Welcome to your Expo app 👋
+![feedgram-banner](https://github.com/user-attachments/assets/b1adf7ca-9cf2-4267-ac80-0320984e4216)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# Feedgram
+Developed a personal project utilizing React Native (Expo) to build a social media application. This app leverages Supabase for its backend, enabling real-time updates to the timeline and instant notifications. Users can seamlessly login and register, and the app facilitates the sharing of posts to a central timeline. To foster community engagement, the platform allows users to interact with each other's posts through a commenting system. This project is intended to enhance my understanding of React Native and its capabilities in developing mobile applications for social interaction, while also exploring the benefits of utilizing Supabase's real-time functionalities.
 
-## Get started
+## Features
 
-1. Install dependencies
+### 1. Upload post to timeline
+User can upload a picture or video to timeline. The format is using text rich (HTML format). After upload, the user can edit the post as well
 
-   ```bash
-   npm install
-   ```
+### 2. Interact with other's post
+User can like and comment to a post. The user will be notified when a comment is added
 
-2. Start the app
+### 3. Edit profile
+User can edit profile through the profile page
 
-   ```bash
-    npx expo start
-   ```
+## Future Plan
+- Make the count of likes and comments become realtime
+- Use custom backend so it doesn't rely on third parties
 
-In the output, you'll find options to open the app in a
+## ERD
+![diagram-export-12-10-2024-8_23_06-PM 1](https://github.com/user-attachments/assets/f163f3b1-45f4-49e5-b777-2cecd49d692f)
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
